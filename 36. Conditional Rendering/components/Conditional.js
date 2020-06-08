@@ -1,18 +1,12 @@
 import React from 'react'
 
+// This function should only know what to do
+// when it's supposed to display.
+
 function Conditional(props) {
     console.log("Running Conditional functional component")
-    let string
-    let loadingText = "We are currently still loading."
-    let done = "More than "
-    done += props.timeout/1000
-    done += " seconds has passed."
-    props.isLoading ? string = loadingText : string = done
-    return (
-        <section>
-            <p>{string}</p>
-        </section>
-    )
+    return <p>More than {props.timeout/1000} seconds has
+            passed!</p>
 }
 
 export default Conditional

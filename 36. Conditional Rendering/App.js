@@ -33,8 +33,9 @@ class App extends React.Component {
       <div className="App">
         <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <Conditional isLoading={this.state.isLoading}
-        timeout={this.timeout}/>
+        {this.state.isLoading ?
+        <p>We are currently still loading.</p> :
+        <Conditional timeout={this.timeout}/>}
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
