@@ -4,19 +4,34 @@ import './App.css';
 
 class App extends React.Component {
   constructor() {
+    console.log("Ran first line of constructor!")
     super()
     this.state = {
-      
+      arr: {},
+      fetchURL: "https://swapi.dev/api/people/83",
+      isLoading: null
     }
+    console.log("Ran last line of constructor!")
     this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
     console.log("Running componentDidMount!")
-    fetch("https://swapi.co/api/people/1")
+    console.log("About to set this.state.isLoading")
+    this.setState({isLoading: true})
+    console.log("isLoading is %o", this.state.isLoading)
+    fetch(this.state.fetchURL)
       .then(responseFromFetch => responseFromFetch.json())
-      .then(responseFromFetchInJSON => 
-        console.log(responseFromFetchInJSON))
+      .then(responseFromFetchInJSON => {
+        console.log("About to setState({})")
+        this.setState({
+          arr: responseFromFetchInJSON,
+          isLoading: false
+        })
+        console.log("Finished setState({})")
+      })
+    console.log("this.state.arr.name is %o in cDM",
+      this.state.arr.name)
     console.log("Completed running of componentDidMount!")
   }
 
@@ -32,7 +47,7 @@ class App extends React.Component {
         return todoItem
       })
       console.log("todoItem[%i].completed is now", id)
-      console.log("%o", this.state.todos[id - 1].completed)
+      console.log("%o", this.state.todos[id-1].completed)
       return {
         todos: newArray
       }
@@ -41,11 +56,20 @@ class App extends React.Component {
   }
 
   render() {
-    console.log("Rendering the App component!")
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
+        {console.log("Rendering the App Component!")}
+        {console.log("isLoading is %o",
+          this.state.isLoading)}
+        {this.state.isLoading ? 
+          <p>
+            Fetching data from {this.state.fetchURL}
+          </p> : this.state.arr.name}
+        {console.log("this.state.arr.name is %o",
+          this.state.arr.name)}
+        {console.log("render() is finishing soon!")}
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
@@ -61,6 +85,6 @@ class App extends React.Component {
     </div>
   );
 }
-} // This is the closing brace for the functional component.
+} // Closing brace for this component
 
 export default App;
