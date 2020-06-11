@@ -10,7 +10,6 @@ class App extends React.Component {
       value: ''
     };
     this.handleChange = this.handleChange.bind(this);
-    this.handleClick = this.handleClick.bind(this);
     console.log("Finished running constructor!")
   }
 
