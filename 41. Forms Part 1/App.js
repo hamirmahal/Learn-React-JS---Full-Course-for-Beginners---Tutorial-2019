@@ -7,7 +7,7 @@ class App extends React.Component {
     console.log("Ran first line of constructor!")
     super();
     this.state = {
-      age: -1,
+      age: 25,
       name: ''
     };
     this.handleChange = this.handleChange.bind(this);
@@ -20,9 +20,12 @@ class App extends React.Component {
   }
 
   handleChange(event) {
-    event.target.name === "nameField" ? 
-      this.setState({name: event.target.value}) :
-      this.setState({age: event.target.value});
+    const eventName = event.target.name
+    console.log(eventName)
+    const eventValue = event.target.value
+    this.setState({
+      [eventName]: eventValue 
+    })
   }
 
   render() {
@@ -33,19 +36,21 @@ class App extends React.Component {
         {console.log("Rendering the App Component!")}
         <form>
           <input
-            name="nameField"
+            name="name"
             onChange={this.handleChange}
             placeholder="Hello! Please enter your name."
-            type="text" />
+            type="text"
+            value={this.state.name} />
           <br />
           <input
-            name="ageField"
+            name="age"
             onChange={this.handleChange}
             placeholder="Hello! Please enter your age."
-            type="text" />
+            type="text"
+            value={this.state.age} />
         </form>
-        {alert(this.state.name)}
-        {alert(this.state.age)}
+        {alert('this.state.name is ' + this.state.name)}
+        {alert('this.state.age is ' + this.state.age)}
         {console.log("render() is finishing soon!")}
         <p>
           Edit <code>src/App.js</code> and save to reload.
