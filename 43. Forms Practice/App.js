@@ -9,7 +9,7 @@ class App extends React.Component {
     this.state = {
       firstName: '',
       lastName: '',
-      age: 25,
+      age: '',
       gender: '',
       location: '',
       glutenFree: false,
@@ -30,40 +30,51 @@ class App extends React.Component {
   }
 
   handleChange(event) {
-    const eventName = event.target.name;
-    console.log(eventName);
-    const eventType = event.target.type;
-    console.log(eventType);
-    const eventValue = eventType === 'checkbox' ?
-      event.target.checked : event.target.value;
-    console.log(eventValue);
+    let {checked, name, type, value} = event.target;
+    console.log('Checked is %o', checked);
+    console.log('Name is %o', name);
+    console.log('Type is %o', type);
+    console.log('Value was %o', value);
+    if (type === 'checkbox')
+      value = checked;
+    console.log('Value is %o', value);
     this.setState({
-      [eventName]: eventValue
+      [name]: value
     })
   }
 
   handleSubmit() {
-    let dietaryRestrictions = '';
+    let dietRestrictions = '';
     if (this.state.glutenFree)
-      dietaryRestrictions += 'Gluten-Free';
-    if (this.state.halal && dietaryRestrictions !== '')
-      dietaryRestrictions += ', Halal';
-    if (this.state.halal && dietaryRestrictions === '')
-      dietaryRestrictions += 'Halal';
-    if (this.state.kosher && dietaryRestrictions !== '')
-      dietaryRestrictions += ', Kosher';
-    if (this.state.kosher && dietaryRestrictions === '')
-      dietaryRestrictions += 'Kosher';
-    if (this.state.lactoseFree && dietaryRestrictions !== '')
-      dietaryRestrictions += ', Lactose-Free';
-    if (this.state.lactoseFree && dietaryRestrictions === '')
-      dietaryRestrictions += 'Lactose-Free';
+      dietRestrictions += 'Gluten-Free';
+    if (this.state.halal && dietRestrictions !== '')
+      dietRestrictions += ', Halal';
+    if (this.state.halal && dietRestrictions === '')
+      dietRestrictions += 'Halal';
+    if (this.state.kosher && dietRestrictions !== '')
+      dietRestrictions += ', Kosher';
+    if (this.state.kosher && dietRestrictions === '')
+      dietRestrictions += 'Kosher';
+    if (this.state.lactoseFree && dietRestrictions !== '')
+      dietRestrictions += ', Lactose-Free';
+    if (this.state.lactoseFree && dietRestrictions === '')
+      dietRestrictions += 'Lactose-Free';
+    if (this.state.vegan && dietRestrictions !== '')
+      dietRestrictions += ', Vegan';
+    if (this.state.vegan && dietRestrictions === '')
+      dietRestrictions += 'Vegan';
+    if (this.state.vegetarian && dietRestrictions !== '')
+      dietRestrictions += ', Vegetarian';
+    if (this.state.vegetarian && dietRestrictions === '')
+      dietRestrictions += 'Vegetarian';
+    if (dietRestrictions === '')
+      dietRestrictions = 'none';
     alert('First name: ' + this.state.firstName +
     '\nLast name: ' + this.state.lastName +
     '\nAge: ' + this.state.age +
     '\nGender: ' + this.state.gender +
     '\nLocation: ' + this.state.location +
-    '\nDietary restrictions: ' + dietaryRestrictions);
+    '\nDietary restrictions: ' + dietRestrictions);
   }
 
   render() {
@@ -90,7 +101,7 @@ class App extends React.Component {
           <input
             name='age'
             onChange={this.handleChange}
-            placeholder='Hello! Please enter your age.'
+            placeholder='Please enter your age.'
             type='text'
             value={this.state.age} />
           <br />
@@ -123,12 +134,12 @@ class App extends React.Component {
           </label>
           <br />
           <br />
-          <label>To which airport are you traveling?</label>
+          <label>Which airport are you visiting?</label>
           <br />
           <select
             name='location'
-            onChange={this.handleChange}
-            value={this.state.favoritePrimaryColor}>
+            onChange={this.handleChange} >
+            <option value=''>___</option>
             <option value='ACV'>ACV</option>
             <option value='BFL'>BFL</option>
             <option value='BUR'>BUR</option>
