@@ -139,7 +139,7 @@ class App extends React.Component {
           <select
             name='location'
             onChange={this.handleChange} >
-            <option value=''>___</option>
+            <option value=''>---</option>
             <option value='ACV'>ACV</option>
             <option value='BFL'>BFL</option>
             <option value='BUR'>BUR</option>
